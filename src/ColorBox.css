@@ -42,6 +42,7 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     font-size: 12px;
+    box-sizing: border-box;
 }
 .see-more{
     background: rgba(255, 255, 255, 0.3);
@@ -69,7 +70,7 @@
     opacity: 1;
     transform: scale(50);
     z-index: 10;
-    position: absolute;
+    position: fixed;
 }
 .copy-msg {
     position: fixed;
