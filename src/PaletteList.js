@@ -6,9 +6,9 @@ import { withStyles } from '@mui/styles';
 const styles = {
     root: {
         backgroundColor: "blue",
-        height: '100%',
+        height: '100vh',
         display: 'flex',
-        alignItem: 'flex-start',
+        alignItems: 'flex-start',
         justifyContent: 'center'
     },
     container: {
@@ -44,7 +44,7 @@ class Palettelist extends Component {
                     </nav>
                     <div className={classes.palettes}>
                         {this.props.list.map(palette => (
-                            <MiniPalette {...palette} />
+                            <MiniPalette key={palette.paletteName} {...palette} />
                         ))}
                     </div>
                 </div>
