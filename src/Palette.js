@@ -31,7 +31,7 @@ class Palette extends Component {
                 /* id={color.id} 
                 paletteId={id} */ /* IF I NEED THE ID, PALETTEID in the child component then this approach better */
                 moreUrl={`/palette/${id}/${color.id}`} /* Pass the link directly ALTERNATIVE */
-                showLink={true}
+                showingFullPalette={true}
             />
         ));
         return (
