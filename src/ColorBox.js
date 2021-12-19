@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 import './ColorBox.css';
 
 class Colorbox extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             copied: false
         }
         this.changeCopyState = this.changeCopyState.bind(this);
     }
-    changeCopyState(){
-        this.setState({copied: true}, () => {
-            setTimeout(() => {this.setState({copied: false})}, 1500);
+    changeCopyState() {
+        this.setState({ copied: true }, () => {
+            setTimeout(() => { this.setState({ copied: false }) }, 1500);
         })
     }
     render() {
@@ -20,7 +21,7 @@ class Colorbox extends Component {
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
                 <div style={{ background: background }} className="ColorBox">
-                    <div style={{background: background}} className={`copy-overlay ${this.state.copied && "show"}`}></div>
+                    <div style={{ background: background }} className={`copy-overlay ${this.state.copied && "show"}`}></div>
                     <div className={`copy-msg ${this.state.copied && "show"}`}>
                         <h1>COPIED!</h1>
                         <p>{background}</p>
@@ -31,9 +32,11 @@ class Colorbox extends Component {
                         </div>
                         <button className="copy-button">COPY</button>
                     </div>
+                    <Link to="/" onClick={evt => evt.stopPropagation()}> {/* This (stopPropagation) will prevent further events to be fired. */}
                     <span className="see-more">MORE</span>
-                </div>
-            </CopyToClipboard>
+                </Link>
+            </div>
+            </CopyToClipboard >
         );
     }
 }

@@ -1,4 +1,3 @@
-import { palette } from '@mui/system';
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
