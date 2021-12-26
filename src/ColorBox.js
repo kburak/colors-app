@@ -119,8 +119,7 @@ const styles = {
         zIndex: "25",
         transition: "all 0.4s ease-in-out",
         transitionDelay: "0.3s"
-    },
-
+    }
 }
 
 class Colorbox extends Component {
@@ -137,7 +136,7 @@ class Colorbox extends Component {
         })
     }
     render() {
-        const { name, background, /* paletteId, id, */ moreUrl, showLink, classes, showingFullPalette } = this.props;
+        const { name, background, /* paletteId, id, */ moreUrl, classes, showingFullPalette } = this.props;
         const { copied } = this.state;
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>

@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
-import './Palette.css';
+import {withStyles} from '@mui/styles';
 import PaletteFooter from './PaletteFooter';
+import './Palette.css';
+
+const styles = {
+    Palette: {
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column"
+    },
+    PaletteColors: {
+        height: "90%"
+    }
+
+
+}
 
 class Palette extends Component {
     constructor(props) {
@@ -35,7 +49,7 @@ class Palette extends Component {
             />
         ));
         return (
-            <div className="Palette">
+            <div className={this.props.classes.Palette}>
                 <Navbar 
                     level={level} 
                     changeLevel={this.changeLevel} 
@@ -43,7 +57,7 @@ class Palette extends Component {
                     showingAllColors={true}
                 />
                 {/* Navbar goes here */}
-                <div className="Palette-colors">
+                <div className={this.props.classes.PaletteColors}>
                     {/* bunch of color boxes */}
                     {colorBoxes}
                 </div>
@@ -53,4 +67,4 @@ class Palette extends Component {
     }
 }
 
-export default Palette;
+export default withStyles(styles)(Palette);
