@@ -77,11 +77,13 @@ class Newpaletteform extends Component {
         super(props);
         this.state = {
             open: false,
-            pickedColor: "#800080"
+            currentColor: "#800080",
+            colors: ["purple", "#018080"]
         }
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.updateCurrentColor = this.updateCurrentColor.bind(this);
+        this.addNewColor = this.addNewColor.bind(this);
     }
     handleDrawerOpen() {
         this.setState({ open: true });
@@ -89,12 +91,15 @@ class Newpaletteform extends Component {
     handleDrawerClose() {
         this.setState({ open: false });
     };
-    handleChange(color){
-        this.setState({pickedColor: color.hex});
+    updateCurrentColor(newColor){
+        this.setState({currentColor: newColor.hex});
+    }
+    addNewColor(){
+        this.setState({colors: [...this.state.colors, this.state.currentColor]});
     }
     render() {
         const { classes } = this.props;
-        const { open, pickedColor } = this.state;
+        const { open, currentColor } = this.state;
 
         return (
             <div className={classes.root}>
@@ -146,11 +151,16 @@ class Newpaletteform extends Component {
                         </Button>
                     </div>
                     <ChromePicker
-                        color={pickedColor}
-                        onChange={this.handleChange}
-                        onChangeComplete={(newColor) => console.log(newColor)}
+                        color={currentColor}
+                        onChange={this.updateCurrentColor}
+                        /* onChangeComplete={(newColor) => console.log(newColor)} */
                     />
-                    <Button variant="contained" color="primary">
+                    <Button 
+                        variant="contained" 
+                        color="primary"
+                        style={{backgroundColor: currentColor}}
+                        onClick={this.addNewColor}
+                        >
                             Add Color
                         </Button>
                 </Drawer>
@@ -160,7 +170,11 @@ class Newpaletteform extends Component {
                     })}
                 >
                     <div className={classes.drawerHeader} />
-
+                    <ul>
+                        {this.state.colors.map( color => (
+                            <li style={{backgroundColor: color}}>{color}</li>
+                        ))}
+                    </ul>
                 </main>
             </div>
         );
