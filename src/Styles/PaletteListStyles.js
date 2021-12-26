@@ -1,4 +1,4 @@
-export default {
+const styles = {
     root: {
         backgroundColor: "blue",
         height: '100vh',
@@ -30,4 +30,5 @@ export default {
         gridTemplateColumns: 'repeat(3, 30%)',
         gridGap: '5%'
     }
-}
+};
+export default styles;
