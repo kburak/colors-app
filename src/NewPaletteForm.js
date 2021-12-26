@@ -10,8 +10,10 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { ChromePicker } from 'react-color';
+import Button from '@material-ui/core/Button';
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const styles = theme => ({
     root: {
@@ -74,10 +76,12 @@ class Newpaletteform extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
+            pickedColor: "#800080"
         }
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     handleDrawerOpen() {
         this.setState({ open: true });
@@ -85,9 +89,12 @@ class Newpaletteform extends Component {
     handleDrawerClose() {
         this.setState({ open: false });
     };
+    handleChange(color){
+        this.setState({pickedColor: color.hex});
+    }
     render() {
         const { classes } = this.props;
-        const { open } = this.state;
+        const { open, pickedColor } = this.state;
 
         return (
             <div className={classes.root}>
@@ -127,6 +134,25 @@ class Newpaletteform extends Component {
                         </IconButton>
                     </div>
                     <Divider />
+                    <Typography variant="h4">
+                        Design your palette
+                    </Typography>
+                    <div>
+                        <Button variant="contained" color="secondary">
+                            Clear Palette
+                            </Button>
+                        <Button variant="contained" color="primary">
+                            Random Color
+                        </Button>
+                    </div>
+                    <ChromePicker
+                        color={pickedColor}
+                        onChange={this.handleChange}
+                        onChangeComplete={(newColor) => console.log(newColor)}
+                    />
+                    <Button variant="contained" color="primary">
+                            Add Color
+                        </Button>
                 </Drawer>
                 <main
                     className={classNames(classes.content, {
@@ -134,10 +160,11 @@ class Newpaletteform extends Component {
                     })}
                 >
                     <div className={classes.drawerHeader} />
+
                 </main>
             </div>
         );
     }
 }
 
-export default withStyles(styles,{ withTheme: true })(Newpaletteform);
+export default withStyles(styles, { withTheme: true })(Newpaletteform);
