@@ -5,7 +5,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const styles = {
     root: {
         width: "20%",
-        height: "25%",
         height: props => props.showingFullPalette ? "25%" : "50%",
         margin: "0 auto",
         display: "inline-block",
@@ -36,7 +35,11 @@ const styles = {
     }
 };
 
+
 const Draggablecolorbox = (props) => {
+    const handleClick = () => {
+        props.removeColor(props.name);
+    }
     return (
         <div 
             className={props.classes.root} 
@@ -44,7 +47,7 @@ const Draggablecolorbox = (props) => {
         >
             <div className={props.classes.boxContent}>
                 <span>{props.name}</span>
-                <DeleteIcon className={props.classes.deleteIcon}/>
+                <DeleteIcon className={props.classes.deleteIcon} onClick={handleClick}/>
             </div>
         </div>
     );
