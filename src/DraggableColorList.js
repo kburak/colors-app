@@ -21,7 +21,11 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
 
     React.useEffect(() => {
         setItems(colors);
-    }, [colors])
+    }, [colors]);
+
+    React.useEffect(() => {
+        handleColorSort(items);
+    }, [items]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -64,7 +68,7 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
                 const oldIndex = items.findIndex(({ name }) => name === active.id);
                 const newIndex = items.findIndex(({ name }) => name === over.id);
                 let newOrder = arrayMove(items, oldIndex, newIndex);
-                handleColorSort(newOrder);
+                // handleColorSort(newOrder);
                 return newOrder;
             });
         }

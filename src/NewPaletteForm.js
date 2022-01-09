@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import Draggablecolorlist from './DraggableColorList';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {arrayMoveImmutable} from 'array-move';
+import { color } from '@mui/system';
 
 
 const drawerWidth = 400;
@@ -78,6 +79,9 @@ const styles = theme => ({
 });
 
 class Newpaletteform extends Component {
+    static defaultProps = {
+        maxColors: 20
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -96,6 +100,8 @@ class Newpaletteform extends Component {
         this.removeColor = this.removeColor.bind(this);
         this.onSortEnd = this.onSortEnd.bind(this);
         this.handleColorSort = this.handleColorSort.bind(this);
+        this.clearColors = this.clearColors.bind(this);
+        this.addRandomColor = this.addRandomColor.bind(this);
     }
     componentDidMount() {
         ValidatorForm.addValidationRule('isColorNameUnique', (value) => (
@@ -129,6 +135,41 @@ class Newpaletteform extends Component {
             [evt.target.name]: evt.target.value
         });
     }
+    clearColors(){
+        this.setState({colors: []});
+    }
+    addRandomColor(){
+        //pick random color from existing palettes
+        const allColors = this.props.palettes.map(p => p.colors).flat(); //.flat(); Alternative to reduce big O(N)
+        const rand = () => Math.floor(Math.random() * allColors.length);
+        let randomColor = allColors[rand()];
+        let existingColorNames = this.state.colors.map(color => color.name);
+
+        while(existingColorNames.indexOf(randomColor.name) >= 1){
+            randomColor = allColors[rand()];
+        }
+
+        this.setState({colors: [...this.state.colors, randomColor]});
+
+        //Reduce alternative
+        /* const flattened = allColors.reduce((all, colorBlock) => {
+            all.push(...colorBlock);
+            return all;
+        }, []); */
+        //Multiple Pointer alternative big O(N)
+        /* let i = 0,
+            j = 0;
+        let flat = [];
+        while (i < allColors.length){
+            if(j < allColors[i].length){
+                flat.push(allColors[i][j]);
+                j++;
+            } else {
+                i++;
+                j = 0;
+            }
+        } */
+    }
     handleSubmit() {
         let newName = this.state.newPaletteName;
         const newPalette = {
@@ -153,8 +194,9 @@ class Newpaletteform extends Component {
         this.setState({colors: sortedColors})
     }
     render() {
-        const { classes } = this.props;
-        const { open, currentColor } = this.state;
+        const { classes, maxColors } = this.props;
+        const { open, currentColor, colors } = this.state;
+        const paletteIsFull = colors.length >= maxColors;
 
         return (
             <div className={classes.root}>
@@ -216,10 +258,15 @@ class Newpaletteform extends Component {
                         Design your palette
                     </Typography>
                     <div>
-                        <Button variant="contained" color="secondary">
+                        <Button variant="contained" color="secondary" onClick={this.clearColors}>
                             Clear Palette
                         </Button>
-                        <Button variant="contained" color="primary">
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            onClick={this.addRandomColor}
+                            disabled={paletteIsFull}
+                        >
                             Random Color
                         </Button>
                     </div>
@@ -242,9 +289,12 @@ class Newpaletteform extends Component {
                             variant="contained"
                             type="submit"
                             color="primary"
-                            style={{ backgroundColor: currentColor }}
+                            disabled={paletteIsFull}
+                            style={{ backgroundColor: paletteIsFull ? "grey" : currentColor }}
                         >
-                            Add Color
+                            {
+                                paletteIsFull ? "Palette Full" : "Add Color"
+                            }
                         </Button>
                     </ValidatorForm>
 
@@ -259,9 +309,6 @@ class Newpaletteform extends Component {
                         colors={this.state.colors}
                         handleColorSort={this.handleColorSort}
                         removeColor={this.removeColor}
-                        /* axis='xy' */
-                        /* onSortEnd={this.onSortEnd} */
-                        /* pressDelay={100} */
                     />
                 </main>
             </div>
