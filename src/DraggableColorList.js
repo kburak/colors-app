@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { SortableContainer } from 'react-sortable-hoc';
 import {
     DndContext,
     closestCenter,
@@ -24,8 +23,13 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
     }, [colors]);
 
     React.useEffect(() => {
-        handleColorSort(items);
+        function executeHandleColorSort(){
+            handleColorSort(items);
+        }
+        executeHandleColorSort();
     }, [items]);
+
+
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
