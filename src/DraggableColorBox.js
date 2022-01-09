@@ -40,7 +40,9 @@ const styles = {
 
 
 const Draggablecolorbox = (props) => {
+    
     const handleClick = () => {
+        console.log("DraggableColorBox");
         props.removeColor(props.name);
     }
     const {
@@ -70,6 +72,5 @@ const Draggablecolorbox = (props) => {
         </div>
     );
 }
-/* export default Draggablecolorbox; */
 
 export default withStyles(styles)(Draggablecolorbox);

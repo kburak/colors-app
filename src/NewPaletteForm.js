@@ -259,7 +259,7 @@ class Newpaletteform extends Component {
                     <Draggablecolorlist
                         colors={this.state.colors}
                         handleColorSort={this.handleColorSort}
-                        /* removeColor={this.removeColor} */
+                        removeColor={this.removeColor}
                         /* axis='xy' */
                         /* onSortEnd={this.onSortEnd} */
                         /* pressDelay={100} */
