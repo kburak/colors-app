@@ -37,7 +37,7 @@ const styles = {
         display: 'inline-block',
         margin: '0 auto',
         position: 'relative',
-        marginBottom: '-3.5px'
+        marginBottom: '-5.5px'
     }
 };
 export default styles;

@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import Draggablecolorlist from './DraggableColorList';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import {arrayMoveImmutable} from 'array-move';
-/* import { color } from '@mui/system'; */
+
 
 const drawerWidth = 400;
 
@@ -66,7 +66,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        marginLeft: -drawerWidth,
+        marginLeft: -drawerWidth
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -95,6 +95,7 @@ class Newpaletteform extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.removeColor = this.removeColor.bind(this);
         this.onSortEnd = this.onSortEnd.bind(this);
+        this.handleColorSort = this.handleColorSort.bind(this);
     }
     componentDidMount() {
         ValidatorForm.addValidationRule('isColorNameUnique', (value) => (
@@ -119,7 +120,8 @@ class Newpaletteform extends Component {
     addNewColor() {
         const newColor = {
             color: this.state.currentColor,
-            name: this.state.newColorName
+            name: this.state.newColorName,
+            id: this.state.newColorName
         }
         this.setState({ colors: [...this.state.colors, newColor], newColorName: "" });
     }
@@ -148,6 +150,9 @@ class Newpaletteform extends Component {
             colors: arrayMoveImmutable(colors, oldIndex, newIndex),
         }));
     };
+    handleColorSort(sortedColors){
+        this.setState({colors: sortedColors})
+    }
     render() {
         const { classes } = this.props;
         const { open, currentColor } = this.state;
@@ -253,10 +258,11 @@ class Newpaletteform extends Component {
                     <div className={classes.drawerHeader} />
                     <Draggablecolorlist
                         colors={this.state.colors}
-                        removeColor={this.removeColor}
-                        axis='xy'
-                        onSortEnd={this.onSortEnd}
-                        pressDelay={100}
+                        handleColorSort={this.handleColorSort}
+                        /* removeColor={this.removeColor} */
+                        /* axis='xy' */
+                        /* onSortEnd={this.onSortEnd} */
+                        /* pressDelay={100} */
                     />
                 </main>
             </div>
