@@ -40,14 +40,14 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
             onDragEnd={handleDragEnd}
         >
             <SortableContext
-                items={items.map(({id}) => id)}
+                items={items.map(({name}) => name)}
                 strategy={rectSortingStrategy}
             >
                 <Grid>
                     {items.map((color, i) => (
                         <DraggableColorBox 
                             key={color.name} 
-                            id={color.id} 
+                            id={color.name} 
                             color={color.color} 
                             name={color.name}
                             removeColor={removeColor}
@@ -61,8 +61,8 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
         const { active, over } = event;
         if (active.id !== over.id) {
             setItems((items) => {
-                const oldIndex = items.findIndex(({ id }) => id === active.id);
-                const newIndex = items.findIndex(({ id }) => id === over.id);
+                const oldIndex = items.findIndex(({ name }) => name === active.id);
+                const newIndex = items.findIndex(({ name }) => name === over.id);
                 let newOrder = arrayMove(items, oldIndex, newIndex);
                 handleColorSort(newOrder);
                 return newOrder;

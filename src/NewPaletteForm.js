@@ -84,7 +84,7 @@ class Newpaletteform extends Component {
             open: false,
             currentColor: "#800080",
             newColorName: "",
-            colors: [],
+            colors: this.props.palettes[0].colors,
             newPaletteName: ""
         }
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
@@ -120,8 +120,7 @@ class Newpaletteform extends Component {
     addNewColor() {
         const newColor = {
             color: this.state.currentColor,
-            name: this.state.newColorName,
-            id: this.state.newColorName
+            name: this.state.newColorName
         }
         this.setState({ colors: [...this.state.colors, newColor], newColorName: "" });
     }
