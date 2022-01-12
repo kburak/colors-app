@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
 import { ChromePicker } from 'react-color';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+const styles = {
+    pickerContainer: {
+        width: '100%'
+    },
+    picker: {
+        width: '100% !important',
+        margin: '1rem 0 1rem 0'
+    },
+    addColor: {
+        width: '100%',
+        padding: '1rem',
+        marginTop: '1rem',
+        fontSize: '2rem'
+    },
+    colorNameInput: {
+        width:'100%',
+        height: '70px'
+    }
+};
+
 class Colorpickerform extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             currentColor: "teal",
@@ -31,23 +52,24 @@ class Colorpickerform extends Component {
             [evt.target.name]: evt.target.value
         });
     }
-    handleSubmit(){
+    handleSubmit() {
         const newColor = {
             color: this.state.currentColor,
             name: this.state.newColorName
         }
         this.props.addNewColor(newColor);
-        this.setState({newColorName: ''});
+        this.setState({ newColorName: '' });
     }
     render() {
-        const {paletteIsFull} = this.props;
-        const {currentColor, newColorName} = this.state;
+        const { paletteIsFull, classes } = this.props;
+        const { currentColor, newColorName } = this.state;
 
         return (
-            <div>
+            <div className={classes.pickerContainer}>
                 <ChromePicker
                     color={currentColor}
                     onChange={this.updateCurrentColor}
+                    className={classes.picker}
                 /* onChangeComplete={(newColor) => console.log(newColor)} */
                 />
                 <ValidatorForm
@@ -55,7 +77,11 @@ class Colorpickerform extends Component {
                 >
                     <TextValidator
                         value={newColorName}
+                        className={classes.colorNameInput}
                         name="newColorName"
+                        variant="filled"
+                        margin="normal"
+                        placeholder='Color Name'
                         onChange={this.handleChange}
                         validators={['required', 'isColorNameUnique', 'isColorUnique']}
                         errorMessages={['the field is required!', 'Color name must be unique!', 'Color already used']}
@@ -65,6 +91,7 @@ class Colorpickerform extends Component {
                         type="submit"
                         color="primary"
                         disabled={paletteIsFull}
+                        className={classes.addColor}
                         style={{ backgroundColor: paletteIsFull ? "grey" : currentColor }}
                     >
                         {
@@ -77,4 +104,4 @@ class Colorpickerform extends Component {
     }
 }
 
-export default Colorpickerform;
+export default withStyles(styles)(Colorpickerform);

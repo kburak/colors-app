@@ -90,6 +90,7 @@ class PaletteFormNav extends Component {
                                 label="Palette Name"
                                 onChange={this.handleChange}
                                 name="newPaletteName"
+                                variant="filled"
                                 value={this.state.newPaletteName}
                                 validators={["required", "isPaletteNameUnique"]}
                                 errorMessages={["Enter palette name", "Name already used"]}
