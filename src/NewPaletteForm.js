@@ -145,6 +145,7 @@ class Newpaletteform extends Component {
         } */
     }
     handleSubmit(newPaletteName) {
+        console.log(newPaletteName)
         let newName = newPaletteName;
         const newPalette = {
             paletteName: newName,
