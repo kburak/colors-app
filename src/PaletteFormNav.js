@@ -18,16 +18,23 @@ const styles = theme => ({
     root: {
         display: 'flex'
     },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
+    appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         height: '64px'
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        })
     },
     menuButton: {
         marginLeft: 12,
@@ -37,7 +44,16 @@ const styles = theme => ({
         display: 'none',
     },
     navBtns: {
-
+        marginRiht: "1rem",
+        "& a": {
+            textDecoration: 'none'
+        }
+    },
+    button: {
+        margin: "0 0.5rem",
+        "& a": {
+            textDecoration: 'none'
+        }
     }
 })
 
@@ -45,14 +61,19 @@ class PaletteFormNav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newPaletteName: ""
+            newPaletteName: "",
+            formShowing: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.showForm = this.showForm.bind(this);
     }
     handleChange(evt) {
         this.setState({
             [evt.target.name]: evt.target.value
         });
+    }
+    showForm() {
+        this.setState({ formShowing: true });
     }
     render() {
         const { classes, open, palettes, handleSubmit } = this.props;
@@ -80,13 +101,18 @@ class PaletteFormNav extends Component {
                         </Typography>
                     </Toolbar>
                     <div className={classes.navBtns}>
-                        <PaletteMetaForm
-                            palettes={palettes}
-                            handleSubmit={handleSubmit}
-                        />
                         <Link to='/'>
-                            <Button variant='contained' color='secondary'>GO BACK</Button>
+                            <Button variant='contained' color='secondary' className={classes.button}>GO BACK</Button>
                         </Link>
+                        <Button variant="contained" color="primary" onClick={this.showForm} className={classes.button}>
+                            Save
+                        </Button>
+                        {this.state.formShowing && (
+                            <PaletteMetaForm
+                                palettes={palettes}
+                                handleSubmit={handleSubmit}
+                            />
+                        )}
                     </div>
                 </AppBar>
             </div>
