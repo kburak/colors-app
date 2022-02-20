@@ -16,7 +16,6 @@ const styles = {
         cursor: "pointer",
         marginBottom: "-5.5px",
         opacity: "1",
-        position: "relative",
         background: "black",
         "& a" : {
             color: "white",

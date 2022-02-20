@@ -79,7 +79,7 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
 }
 
 function Grid({ children }) {
-    console.log(children);
+    // console.log(children);
     return (
         <div
             style={{
