@@ -69,7 +69,6 @@ class PaletteMetaForm extends Component {
                             <DialogContentText>
                                 Please enter a name for your palette. Make sure it's unique.
                             </DialogContentText>
-
                             <TextValidator
                                 label="Palette Name"
                                 onChange={this.handleChange}
