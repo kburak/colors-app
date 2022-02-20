@@ -30,7 +30,6 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
     }, [items]);
 
 
-
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
@@ -80,12 +79,12 @@ const Draggablecolorlist = ({ colors, removeColor, handleColorSort }) => {
 }
 
 function Grid({ children }) {
+    console.log(children);
     return (
         <div
             style={{
                 maxWidth: '100%',
                 height: '100%',
-                paddingTop: '24px'
             }}
         >
             {children}
